@@ -1,0 +1,6 @@
+{
+  "name": "JobPulse",
+  "description": "Real-time fresher & software job monitoring platform with instant detection, walk-in drives aggregator, and custom alerts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
