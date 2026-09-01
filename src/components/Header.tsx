@@ -8,7 +8,8 @@ import {
   ShieldCheck, 
   SlidersHorizontal,
   Bookmark,
-  Download
+  FileText,
+  Mail
 } from 'lucide-react';
 import { NotificationItem, SavedJobItem } from '../types';
 
@@ -21,6 +22,7 @@ interface HeaderProps {
   savedJobs: SavedJobItem[];
   onOpenNotifications: () => void;
   onOpenFilterDrawer: () => void;
+  onOpenResumeProfile?: () => void;
   onTriggerCrawl: () => void;
   isCrawling: boolean;
 }
@@ -34,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
   savedJobs,
   onOpenNotifications,
   onOpenFilterDrawer,
+  onOpenResumeProfile,
   onTriggerCrawl,
   isCrawling
 }) => {
@@ -127,6 +130,17 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Action Icons */}
         <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+          {/* Resume / Profile Button */}
+          <button
+            id="header-resume-profile-btn"
+            onClick={onOpenResumeProfile}
+            className="px-2.5 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 text-xs font-semibold flex items-center space-x-1.5 transition-colors"
+            title="My Candidate Resume & 1-Click Profile"
+          >
+            <FileText className="w-3.5 h-3.5 text-blue-400" />
+            <span className="hidden sm:inline">My Resume</span>
+          </button>
+
           {/* Saved Jobs Quick Button */}
           <button
             id="header-saved-jobs-btn"
@@ -146,6 +160,20 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
 
+          {/* Gmail Tracker Quick Button */}
+          <button
+            id="header-gmail-tracker-btn"
+            onClick={() => setActiveTab('gmail-tracker')}
+            className={`p-2 rounded-lg border transition-colors relative ${
+              activeTab === 'gmail-tracker' 
+                ? 'bg-red-500/20 border-red-500/40 text-red-300' 
+                : 'bg-slate-800 border-slate-700/80 text-slate-300 hover:bg-slate-700'
+            }`}
+            title="Gmail Notifications & Status Tracking"
+          >
+            <Mail className="w-4 h-4 text-red-400" />
+          </button>
+
           {/* Notifications Drawer Toggle */}
           <button
             id="header-notifications-btn"
@@ -160,18 +188,6 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             )}
           </button>
-
-          {/* Direct ZIP Download */}
-          <a
-            id="header-download-zip-btn"
-            href="/api/download-zip"
-            download="jobpulse-source-code.zip"
-            className="px-2.5 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-semibold flex items-center space-x-1.5 transition-colors"
-            title="Download Complete Source Code as ZIP"
-          >
-            <Download className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden sm:inline">ZIP</span>
-          </a>
 
           {/* Admin / Portal Mode Indicator */}
           <button

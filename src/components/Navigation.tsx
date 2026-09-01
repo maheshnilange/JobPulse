@@ -10,7 +10,8 @@ import {
   BellRing, 
   FolderHeart, 
   Settings2,
-  FileCode2
+  FileCode2,
+  Mail
 } from 'lucide-react';
 
 interface NavigationProps {
@@ -40,6 +41,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'companies', label: 'Companies', icon: Building2 },
     { id: 'alerts', label: 'My Alerts', icon: BellRing },
     { id: 'saved', label: 'Saved & Tracker', icon: FolderHeart },
+    { id: 'gmail-tracker', label: 'Gmail Tracker', icon: Mail, badge: 'Gmail Sync' },
     { id: 'admin', label: 'Admin & Sources', icon: Settings2 },
     { id: 'api-tests', label: 'API & Tests', icon: FileCode2 }
   ];

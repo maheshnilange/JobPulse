@@ -5,14 +5,18 @@ import { DashboardView } from './components/DashboardView';
 import { JobsListView } from './components/JobsListView';
 import { WalkInDrivesView } from './components/WalkInDrivesView';
 import { JobDetailModal } from './components/JobDetailModal';
+import { DirectApplyModal } from './components/DirectApplyModal';
+import { ResumeProfileModal } from './components/ResumeProfileModal';
 import { AdvancedFilterDrawer } from './components/AdvancedFilterDrawer';
 import { AlertsManagerView } from './components/AlertsManagerView';
 import { NotificationsDrawer } from './components/NotificationsDrawer';
 import { SavedJobsTrackerView } from './components/SavedJobsTrackerView';
+import { GmailIntegrationView } from './components/GmailIntegrationView';
 import { CompaniesDirectoryView } from './components/CompaniesDirectoryView';
 import { AdminDashboardView } from './components/AdminDashboardView';
 import { ApiDocsAndTestsView } from './components/ApiDocsAndTestsView';
 import { api } from './lib/api';
+import { getUserProfile } from './lib/userProfile';
 import { 
   Company, 
   DashboardStats, 
@@ -24,7 +28,7 @@ import {
   UserAlert, 
   WalkInDrive 
 } from './types';
-import { Bell, Flame, Sparkles } from 'lucide-react';
+import { Bell, Flame, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
@@ -48,14 +52,29 @@ export function App() {
 
   // UI Modal / Drawer States
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [applyingJob, setApplyingJob] = useState<Job | null>(null);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState<boolean>(false);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState<boolean>(false);
   const [isNotifDrawerOpen, setIsNotifDrawerOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [isCrawling, setIsCrawling] = useState<boolean>(false);
-  const [toastMessage, setToastMessage] = useState<{ title: string; desc: string; jobId?: string } | null>(null);
+  const [toastMessage, setToastMessage] = useState<{ title: string; desc: string; isSuccess?: boolean } | null>(null);
 
   // Set of saved job IDs for fast O(1) checks
   const savedJobIds = new Set(savedJobs.map(s => s.jobId));
+
+  // Check URL query parameters for shared job link (e.g. ?job=JOB-XYZ)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sharedJobId = params.get('job');
+    if (sharedJobId) {
+      api.getJobById(sharedJobId)
+        .then(job => {
+          if (job) setSelectedJob(job);
+        })
+        .catch(err => console.warn('Could not load shared job ID:', err));
+    }
+  }, []);
 
   // 1. Initial Load of Global Data
   const loadInitialData = useCallback(async () => {
@@ -178,7 +197,23 @@ export function App() {
     }
   };
 
-  // 6. Alert Handlers
+  // 6. Direct Application Handler
+  const handleDirectApply = (job: Job) => {
+    setApplyingJob(job);
+  };
+
+  const handleApplicationSuccess = (appResult: any) => {
+    // Refresh saved jobs list so the tracker shows "APPLIED"
+    api.getSavedJobs().then(data => setSavedJobs(data));
+    setToastMessage({
+      title: '🎉 Application Submitted Successfully!',
+      desc: `Your resume was submitted for ${appResult.jobTitle || 'the position'}. Tracked in Saved Jobs.`,
+      isSuccess: true
+    });
+    setTimeout(() => setToastMessage(null), 6000);
+  };
+
+  // 7. Alert Handlers
   const handleCreateAlert = async (data: Partial<UserAlert>) => {
     try {
       const newAlert = await api.createAlert(data);
@@ -206,7 +241,7 @@ export function App() {
     }
   };
 
-  // 7. Notification Handlers
+  // 8. Notification Handlers
   const handleMarkNotifRead = async (id: string) => {
     try {
       const updated = await api.markNotificationRead(id);
@@ -245,9 +280,13 @@ export function App() {
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
       {/* Toast Notification Alert Banner */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 border border-rose-500/50 shadow-2xl rounded-xl p-4 flex items-center space-x-3 text-xs max-w-sm animate-in slide-in-from-bottom duration-300">
-          <div className="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center flex-shrink-0">
-            <Flame className="w-5 h-5 animate-pulse" />
+        <div className={`fixed bottom-5 right-5 z-50 bg-slate-900 border shadow-2xl rounded-xl p-4 flex items-center space-x-3 text-xs max-w-sm animate-in slide-in-from-bottom duration-300 ${
+          toastMessage.isSuccess ? 'border-emerald-500/60' : 'border-rose-500/50'
+        }`}>
+          <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+            toastMessage.isSuccess ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
+          }`}>
+            {toastMessage.isSuccess ? <CheckCircle2 className="w-5 h-5" /> : <Flame className="w-5 h-5 animate-pulse" />}
           </div>
           <div className="flex-1">
             <div className="font-bold text-white">{toastMessage.title}</div>
@@ -272,6 +311,7 @@ export function App() {
         savedJobs={savedJobs}
         onOpenNotifications={() => setIsNotifDrawerOpen(true)}
         onOpenFilterDrawer={() => setIsFilterDrawerOpen(true)}
+        onOpenResumeProfile={() => setIsResumeModalOpen(true)}
         onTriggerCrawl={() => handleTriggerCrawl()}
         isCrawling={isCrawling}
       />
@@ -281,9 +321,6 @@ export function App() {
         activeTab={activeTab}
         setActiveTab={(tab) => {
           setActiveTab(tab);
-          if (['dashboard', 'jobs', 'latest', 'fresher', 'java', 'software', 'walkins'].includes(tab)) {
-            // Keep parameters smooth
-          }
         }}
         todayCount={stats?.todayJobsCount}
         walkInCount={stats?.walkInDrivesCount}
@@ -303,6 +340,7 @@ export function App() {
             onNavigateTab={handleNavigateWithFilters}
             onSaveJob={handleSaveJob}
             savedJobIds={savedJobIds}
+            onDirectApply={handleDirectApply}
           />
         )}
 
@@ -331,6 +369,7 @@ export function App() {
             onSaveJob={handleSaveJob}
             savedJobIds={savedJobIds}
             onRefresh={fetchJobs}
+            onDirectApply={handleDirectApply}
           />
         )}
 
@@ -381,6 +420,13 @@ export function App() {
           />
         )}
 
+        {activeTab === 'gmail-tracker' && (
+          <GmailIntegrationView
+            savedJobs={savedJobs}
+            onSelectJobId={(jobId) => handleSelectJobById(jobId)}
+          />
+        )}
+
         {activeTab === 'admin' && (
           <AdminDashboardView
             sources={sources}
@@ -408,6 +454,31 @@ export function App() {
         onClose={() => setSelectedJob(null)}
         onSaveJob={handleSaveJob}
         isSaved={selectedJob ? savedJobIds.has(selectedJob.id) : false}
+        onDirectApply={handleDirectApply}
+      />
+
+      {/* 1-Click Direct Apply Modal with Resume */}
+      <DirectApplyModal
+        job={applyingJob}
+        onClose={() => setApplyingJob(null)}
+        onApplicationSuccess={handleApplicationSuccess}
+        onEditProfile={() => {
+          setApplyingJob(null);
+          setIsResumeModalOpen(true);
+        }}
+      />
+
+      {/* Candidate Resume & Profile Modal */}
+      <ResumeProfileModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+        onSaved={() => {
+          setToastMessage({
+            title: 'Resume & Profile Updated',
+            desc: 'Your candidate details are ready for 1-click applications.'
+          });
+          setTimeout(() => setToastMessage(null), 4000);
+        }}
       />
 
       <AdvancedFilterDrawer

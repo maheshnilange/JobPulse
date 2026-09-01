@@ -59,7 +59,7 @@ class InMemoryDB {
           otherCriteria: ['Strong problem-solving ability', 'Basic understanding of Object-Oriented Programming (OOP) and Data Structures']
         },
         skills: ['Java', 'Core Java', 'Spring Boot', 'REST API', 'Hibernate', 'SQL', 'Git', 'React'],
-        jobUrl: 'https://ibegin.tcs.com/iBegin/jobs/TCS-IND-2026-0941',
+        jobUrl: 'https://www.tcs.com/careers/india/entry-level',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'TCS iBegin Careers Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -67,7 +67,7 @@ class InMemoryDB {
           {
             sourceName: 'Naukri Feed',
             sourceType: 'NAUKRI',
-            originalUrl: 'https://www.naukri.com/job-listings-tcs-java-developer-pune-0941',
+            originalUrl: 'https://www.naukri.com/tcs-fresher-jobs',
             postedAt: timeAgo(25),
             firstSeenAt: timeAgo(18),
             confidence: 'VERIFIED_JOB_SOURCE'
@@ -75,7 +75,7 @@ class InMemoryDB {
           {
             sourceName: 'TCS Official Career Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://ibegin.tcs.com/iBegin/jobs/TCS-IND-2026-0941',
+            originalUrl: 'https://www.tcs.com/careers/india/entry-level',
             postedAt: timeAgo(20),
             firstSeenAt: timeAgo(12),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -134,7 +134,7 @@ class InMemoryDB {
           otherCriteria: ['Good written and oral communication skills in English', 'Willingness to work across flexible project shifts']
         },
         skills: ['Java', 'Core Java', 'Spring Boot', 'Microservices', 'PostgreSQL', 'Docker', 'AWS', 'Git'],
-        jobUrl: 'https://www.accenture.com/in-en/careers/jobdetails?id=ACC-IN-2026-8812',
+        jobUrl: 'https://www.accenture.com/in-en/careers/jobsearch?jk=software+engineer+fresher',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Accenture Career Gateway',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -142,7 +142,7 @@ class InMemoryDB {
           {
             sourceName: 'Accenture ATS Feed',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://www.accenture.com/in-en/careers/jobdetails?id=ACC-IN-2026-8812',
+            originalUrl: 'https://www.accenture.com/in-en/careers/jobsearch?jk=software+engineer+fresher',
             postedAt: timeAgo(30),
             firstSeenAt: timeAgo(11),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -199,7 +199,7 @@ class InMemoryDB {
           otherCriteria: ['Candidate should not have participated in Infosys selection process in past 6 months']
         },
         skills: ['Java', 'Core Java', 'SQL', 'OOP', 'HTML/CSS', 'Data Structures', 'Spring Boot Basics'],
-        jobUrl: 'https://career.infosys.com/jobdesc?jobReferenceCode=INF-SP-2026-4421',
+        jobUrl: 'https://career.infosys.com/jobs?skill=Java',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Infosys Careers Springboard',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -207,7 +207,7 @@ class InMemoryDB {
           {
             sourceName: 'Infosys Career Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://career.infosys.com/jobdesc?jobReferenceCode=INF-SP-2026-4421',
+            originalUrl: 'https://career.infosys.com/jobs?skill=Java',
             postedAt: timeAgo(45),
             firstSeenAt: timeAgo(32),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -265,7 +265,7 @@ class InMemoryDB {
           requiredCertifications: ['Java / AWS knowledge is an added advantage']
         },
         skills: ['Java', 'Spring Boot', 'Hibernate', 'REST API', 'MySQL', 'MongoDB', 'Git'],
-        jobUrl: 'https://www.persistent.com/careers/job-detail/?id=PER-PUN-9920',
+        jobUrl: 'https://www.persistent.com/careers/',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Persistent Systems Careers',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -273,7 +273,7 @@ class InMemoryDB {
           {
             sourceName: 'LinkedIn Public Feed',
             sourceType: 'LINKEDIN',
-            originalUrl: 'https://www.linkedin.com/jobs/view/persistent-java-pune-9920',
+            originalUrl: 'https://www.linkedin.com/company/persistent-systems/jobs/',
             postedAt: hoursAgo(2),
             firstSeenAt: hoursAgo(1),
             confidence: 'VERIFIED_JOB_SOURCE'
@@ -281,7 +281,7 @@ class InMemoryDB {
           {
             sourceName: 'Persistent Careers Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://www.persistent.com/careers/job-detail/?id=PER-PUN-9920',
+            originalUrl: 'https://www.persistent.com/careers/',
             postedAt: hoursAgo(2),
             firstSeenAt: hoursAgo(1),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -340,7 +340,7 @@ class InMemoryDB {
           otherCriteria: ['Exceptional proficiency in Data Structures and Algorithms', 'System design basics and multi-threading knowledge']
         },
         skills: ['Java', 'Data Structures', 'Algorithms', 'Distributed Systems', 'AWS', 'Multi-threading', 'System Design'],
-        jobUrl: 'https://www.amazon.jobs/en/jobs/AMZ-HYD-SDE-1082',
+        jobUrl: 'https://www.amazon.jobs/en/search?base_query=Software+Development+Engineer+fresher&loc_query=India',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Amazon.jobs Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -348,7 +348,7 @@ class InMemoryDB {
           {
             sourceName: 'Amazon Jobs Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://www.amazon.jobs/en/jobs/AMZ-HYD-SDE-1082',
+            originalUrl: 'https://www.amazon.jobs/en/search?base_query=Software+Development+Engineer+fresher&loc_query=India',
             postedAt: hoursAgo(3),
             firstSeenAt: hoursAgo(2),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -405,7 +405,7 @@ class InMemoryDB {
           otherCriteria: ['Good problem-solving and aptitude skills']
         },
         skills: ['Java', 'Core Java', 'Spring Boot', 'SQL', 'PostgreSQL', 'Git', 'Maven'],
-        jobUrl: 'https://www.capgemini.com/in-en/careers/job/CAP-MUM-7731',
+        jobUrl: 'https://www.capgemini.com/in-en/careers/job-search/?country_code=in-en&technology=Java',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Capgemini Exceller Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -413,7 +413,7 @@ class InMemoryDB {
           {
             sourceName: 'Naukri Feed',
             sourceType: 'NAUKRI',
-            originalUrl: 'https://www.naukri.com/job-listings-capgemini-java-trainee-mumbai-7731',
+            originalUrl: 'https://www.naukri.com/capgemini-fresher-jobs',
             postedAt: hoursAgo(5),
             firstSeenAt: hoursAgo(4),
             confidence: 'VERIFIED_JOB_SOURCE'
@@ -421,7 +421,7 @@ class InMemoryDB {
           {
             sourceName: 'Capgemini Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://www.capgemini.com/in-en/careers/job/CAP-MUM-7731',
+            originalUrl: 'https://www.capgemini.com/in-en/careers/job-search/?country_code=in-en&technology=Java',
             postedAt: hoursAgo(5),
             firstSeenAt: hoursAgo(4),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -477,7 +477,7 @@ class InMemoryDB {
           experienceRequirement: '0-1 year'
         },
         skills: ['Java', 'Spring Framework', 'SQL', 'Hibernate', 'REST API', 'Git'],
-        jobUrl: 'https://careers.cognizant.com/in/en/job/COG-CHE-4991',
+        jobUrl: 'https://careers.cognizant.com/global-en/jobs?keywords=Java+trainee',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Cognizant Careers Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -485,7 +485,7 @@ class InMemoryDB {
           {
             sourceName: 'Cognizant Gateway',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://careers.cognizant.com/in/en/job/COG-CHE-4991',
+            originalUrl: 'https://careers.cognizant.com/global-en/jobs?keywords=Java+trainee',
             postedAt: hoursAgo(8),
             firstSeenAt: hoursAgo(6),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -541,7 +541,7 @@ class InMemoryDB {
           experienceRequirement: '0-1 year'
         },
         skills: ['Java', 'Selenium', 'TestNG', 'Automation Testing', 'SQL', 'Postman', 'RestAssured', 'Git'],
-        jobUrl: 'https://careers.wipro.com/job/WIP-HYD-QA-3310',
+        jobUrl: 'https://careers.wipro.com/careers-home/jobs?keywords=Software+Engineer',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Wipro Elite Gateway',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -549,7 +549,7 @@ class InMemoryDB {
           {
             sourceName: 'Wipro Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://careers.wipro.com/job/WIP-HYD-QA-3310',
+            originalUrl: 'https://careers.wipro.com/careers-home/jobs?keywords=Software+Engineer',
             postedAt: hoursAgo(12),
             firstSeenAt: hoursAgo(10),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -605,7 +605,7 @@ class InMemoryDB {
           experienceRequirement: '0-1 year'
         },
         skills: ['Java', 'Spring Boot', 'Microservices', 'REST API', 'Oracle SQL', 'AWS', 'Git'],
-        jobUrl: 'https://usirecruiting.deloitte.com/job/DEL-USI-2026-664',
+        jobUrl: 'https://jobsindia.deloitte.com/search/?q=Java',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Deloitte USI Recruiting',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -613,7 +613,7 @@ class InMemoryDB {
           {
             sourceName: 'Naukri Feed',
             sourceType: 'NAUKRI',
-            originalUrl: 'https://www.naukri.com/job-listings-deloitte-associate-consultant-664',
+            originalUrl: 'https://www.naukri.com/deloitte-fresher-jobs',
             postedAt: hoursAgo(16),
             firstSeenAt: hoursAgo(14),
             confidence: 'VERIFIED_JOB_SOURCE'
@@ -621,7 +621,7 @@ class InMemoryDB {
           {
             sourceName: 'Deloitte USI Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://usirecruiting.deloitte.com/job/DEL-USI-2026-664',
+            originalUrl: 'https://jobsindia.deloitte.com/search/?q=Java',
             postedAt: hoursAgo(16),
             firstSeenAt: hoursAgo(14),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -677,7 +677,7 @@ class InMemoryDB {
           experienceRequirement: '0-1 year'
         },
         skills: ['Java', 'Core Java', 'Oracle Database', 'SQL', 'Multithreading', 'Helidon', 'REST API', 'Git'],
-        jobUrl: 'https://www.oracle.com/careers/job/ORA-BLR-DEV-901',
+        jobUrl: 'https://careers.oracle.com/jobs/search?keyword=Java',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Oracle Careers Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -685,7 +685,7 @@ class InMemoryDB {
           {
             sourceName: 'Oracle Career Portal',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://www.oracle.com/careers/job/ORA-BLR-DEV-901',
+            originalUrl: 'https://careers.oracle.com/jobs/search?keyword=Java',
             postedAt: hoursAgo(20),
             firstSeenAt: hoursAgo(18),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -741,7 +741,7 @@ class InMemoryDB {
           experienceRequirement: 'Freshers (0-1 year)'
         },
         skills: ['Java', 'Core Java', 'Spring Boot', 'Angular', 'PostgreSQL', 'Git', 'REST API'],
-        jobUrl: 'https://www.hcltech.com/careers/graduate-hiring/HCL-NOI-2026-112',
+        jobUrl: 'https://www.hcltech.com/careers/careers-in-india',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'HCLTech Graduate Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -749,7 +749,7 @@ class InMemoryDB {
           {
             sourceName: 'Naukri Feed',
             sourceType: 'NAUKRI',
-            originalUrl: 'https://www.naukri.com/job-listings-hcl-java-trainee-noida-112',
+            originalUrl: 'https://www.naukri.com/hcl-fresher-jobs',
             postedAt: hoursAgo(24),
             firstSeenAt: hoursAgo(22),
             confidence: 'VERIFIED_JOB_SOURCE'
@@ -806,7 +806,7 @@ class InMemoryDB {
           otherCriteria: ['Deep understanding of Data Structures, Algorithms, and Object-Oriented Design']
         },
         skills: ['Java', 'C#', 'Data Structures', 'Algorithms', 'Azure', 'Distributed Systems', 'Git'],
-        jobUrl: 'https://careers.microsoft.com/job/MSFT-HYD-NCG-551',
+        jobUrl: 'https://careers.microsoft.com/v2/global/en/home.html',
         primarySource: 'COMPANY_PORTAL',
         primarySourceName: 'Microsoft Careers Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -814,7 +814,7 @@ class InMemoryDB {
           {
             sourceName: 'Microsoft Careers',
             sourceType: 'COMPANY_PORTAL',
-            originalUrl: 'https://careers.microsoft.com/job/MSFT-HYD-NCG-551',
+            originalUrl: 'https://careers.microsoft.com/v2/global/en/home.html',
             postedAt: hoursAgo(30),
             firstSeenAt: hoursAgo(26),
             confidence: 'OFFICIAL_CAREER_PAGE'
@@ -864,8 +864,8 @@ class InMemoryDB {
         eligibility: 'B.E/B.Tech (CSE/IT/ECE), MCA (2024, 2025, 2026 Batches). Minimum 60% aggregate with max 1 active backlog.',
         skills: ['Core Java', 'Spring Boot', 'SQL', 'OOP Concepts', 'Data Structures', 'REST API'],
         registrationRequired: true,
-        registrationUrl: 'https://ibegin.tcs.com/iBegin/walkin/pune-java-2026',
-        sourceUrl: 'https://www.tcs.com/careers/walkin-drives',
+        registrationUrl: 'https://www.tcs.com/careers/india/entry-level',
+        sourceUrl: 'https://www.tcs.com/careers/india',
         sourceName: 'TCS Official Career Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
         lastVerifiedAt: '2026-08-30 11:30 AM',
@@ -902,7 +902,7 @@ class InMemoryDB {
         eligibility: 'B.E/B.Tech (CS/IT), MCA (2024/2025/2026 batches). 60% and above in 10th, 12th, and Graduation.',
         skills: ['Java', 'Spring Boot', 'Hibernate', 'RESTful Services', 'MySQL', 'Git'],
         registrationRequired: false,
-        sourceUrl: 'https://www.persistent.com/careers/walkin-pune',
+        sourceUrl: 'https://www.persistent.com/careers/',
         sourceName: 'Persistent Systems Career Page',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
         lastVerifiedAt: '2026-08-30 08:15 AM',
@@ -938,8 +938,8 @@ class InMemoryDB {
         eligibility: 'B.Tech/B.E (Any branch), MCA with minimum 60% aggregate. No pending backlogs.',
         skills: ['Core Java', 'Spring Boot Basics', 'SQL Queries', 'Basic Web Technologies'],
         registrationRequired: true,
-        registrationUrl: 'https://www.capgemini.com/in-en/careers/walkin-airoli-java',
-        sourceUrl: 'https://www.capgemini.com/careers',
+        registrationUrl: 'https://www.capgemini.com/in-en/careers/job-search/',
+        sourceUrl: 'https://www.capgemini.com/in-en/careers/',
         sourceName: 'Capgemini Official Career Gateway',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
         lastVerifiedAt: '2026-08-30 10:45 AM',
@@ -975,7 +975,7 @@ class InMemoryDB {
         eligibility: 'B.Sc (Comp Sci/IT), BCA, B.E/B.Tech (All engineering branches). 65% in 10th, 12th, and Degree.',
         skills: ['Java Fundamentals', 'Logical Reasoning', 'SQL Basics', 'Communication Skills'],
         registrationRequired: true,
-        registrationUrl: 'https://career.infosys.com/walkin/bengaluru-sept-2026',
+        registrationUrl: 'https://career.infosys.com',
         sourceUrl: 'https://career.infosys.com',
         sourceName: 'Infosys Career Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -1012,7 +1012,7 @@ class InMemoryDB {
         eligibility: 'B.E/B.Tech/MCA/M.Tech (2024, 2025, 2026 batches). Aggregate 65% or 6.5 CGPA throughout with no active backlog.',
         skills: ['Java', 'Spring Boot', 'Data Structures', 'Cloud Concepts', 'Problem Solving'],
         registrationRequired: true,
-        registrationUrl: 'https://www.accenture.com/in-en/careers/walkin-blr-2026',
+        registrationUrl: 'https://www.accenture.com/in-en/careers',
         sourceUrl: 'https://www.accenture.com/in-en/careers',
         sourceName: 'Accenture Career Gateway',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
@@ -1049,7 +1049,7 @@ class InMemoryDB {
         eligibility: 'B.E/B.Tech/MCA/M.Sc IT (2024/2025). Minimum 60% throughout with zero active backlogs.',
         skills: ['Core Java', 'SQL', 'HTML/CSS', 'OOPs', 'Aptitude & Reasoning'],
         registrationRequired: false,
-        sourceUrl: 'https://careers.cognizant.com/in/en/walkin-chennai',
+        sourceUrl: 'https://careers.cognizant.com/global-en/jobs',
         sourceName: 'Cognizant Careers Portal',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
         lastVerifiedAt: '2026-08-30 08:40 AM',
@@ -1085,7 +1085,7 @@ class InMemoryDB {
         eligibility: 'B.E/B.Tech/MCA (2024/2025). 60% throughout.',
         skills: ['Java', 'SQL', 'OOPs'],
         registrationRequired: true,
-        sourceUrl: 'https://careers.wipro.com/walkin-hyd',
+        sourceUrl: 'https://careers.wipro.com/careers-home',
         sourceName: 'Wipro Elite Gateway',
         sourceConfidence: 'OFFICIAL_CAREER_PAGE',
         lastVerifiedAt: '2026-08-25 02:00 PM',

@@ -11,8 +11,7 @@ import {
   Check,
   Server,
   Layers,
-  Sparkles,
-  Download
+  Sparkles
 } from 'lucide-react';
 import { TestSuiteSummary } from '../types';
 import { api } from '../lib/api';
@@ -142,15 +141,6 @@ public class JobIngestionScheduler {
         </div>
 
         <div className="flex items-center space-x-2.5">
-          <a
-            href="/api/download-zip"
-            download="jobpulse-source-code.zip"
-            className="px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs sm:text-sm font-bold flex items-center space-x-2 transition-all"
-          >
-            <Download className="w-4 h-4 text-emerald-400" />
-            <span>Download Project ZIP</span>
-          </a>
-
           <button
             onClick={handleRunTests}
             disabled={running}

@@ -27,13 +27,15 @@ interface JobDetailModalProps {
   onClose: () => void;
   onSaveJob: (jobId: string) => void;
   isSaved: boolean;
+  onDirectApply?: (job: Job) => void;
 }
 
 export const JobDetailModal: React.FC<JobDetailModalProps> = ({
   job,
   onClose,
   onSaveJob,
-  isSaved
+  isSaved,
+  onDirectApply
 }) => {
   const [copied, setCopied] = useState(false);
   const [aiAnalysis, setAiAnalysis] = useState<{ summary: string; keyHighlights: string[]; interviewTips: string[] } | null>(null);
@@ -54,9 +56,10 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({
   if (!job) return null;
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const shareUrl = window.location.origin + window.location.pathname + '?job=' + job.id;
+    navigator.clipboard.writeText(shareUrl);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
@@ -354,8 +357,9 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({
         <div className="p-4 sm:p-5 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center space-x-2">
             <button
+              id="job-detail-save-btn"
               onClick={() => onSaveJob(job.id)}
-              className={`px-3 py-2 rounded-xl text-xs font-semibold border flex items-center space-x-1.5 transition-colors ${
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold border flex items-center space-x-1.5 transition-colors ${
                 isSaved
                   ? 'bg-blue-600 text-white border-blue-500'
                   : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
@@ -366,24 +370,51 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({
             </button>
 
             <button
+              id="job-detail-share-btn"
               onClick={handleCopyLink}
-              className="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 text-xs font-semibold flex items-center space-x-1.5 transition-colors"
+              className="px-3.5 py-2.5 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 text-xs font-semibold flex items-center space-x-1.5 transition-colors shadow-xs"
+              title="Share job opening URL"
             >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
-              <span>{copied ? 'Copied' : 'Share'}</span>
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <span className="text-emerald-300 font-bold">Link Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-4 h-4 text-indigo-400" />
+                  <span>Share Job</span>
+                </>
+              )}
             </button>
           </div>
 
-          <a
-            id="job-detail-apply-original-btn"
-            href={job.jobUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-bold text-sm flex items-center space-x-2 shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
-          >
-            <span>Apply on Official Source</span>
-            <ExternalLink className="w-4 h-4" />
-          </a>
+          <div className="flex items-center gap-2">
+            <button
+              id="job-detail-direct-apply-btn"
+              onClick={() => {
+                if (onDirectApply) {
+                  onDirectApply(job);
+                }
+              }}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm flex items-center space-x-2 shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+            >
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>1-Click Apply with My Resume</span>
+            </button>
+
+            <a
+              id="job-detail-apply-original-btn"
+              href={job.jobUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium text-xs flex items-center space-x-1.5 transition-all"
+              title="Open verified employer career portal in a new tab"
+            >
+              <span>Open Portal</span>
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

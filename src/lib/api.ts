@@ -130,6 +130,29 @@ export const api = {
     return res.json();
   },
 
+  applyToJob: async (data: {
+    jobId: string;
+    candidateName: string;
+    candidateEmail: string;
+    candidatePhone?: string;
+    candidateDegree?: string;
+    graduationYear?: number;
+    candidateSkills?: string[];
+    resumeFileName?: string;
+    coverNote?: string;
+  }): Promise<{ success: boolean; applicationId: string; appliedAt: string; matchScore: number; job: Job; savedItem: SavedJobItem; message: string }> => {
+    const res = await fetch('/api/jobs/apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to submit application');
+    }
+    return res.json();
+  },
+
   saveJob: async (jobId: string, status = 'Saved', notes = ''): Promise<SavedJobItem> => {
     const res = await fetch('/api/saved', {
       method: 'POST',

@@ -26,6 +26,7 @@ interface DashboardViewProps {
   onNavigateTab: (tab: string, filterParams?: any) => void;
   onSaveJob: (jobId: string) => void;
   savedJobIds: Set<string>;
+  onDirectApply?: (job: Job) => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -36,7 +37,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onSelectWalkIn,
   onNavigateTab,
   onSaveJob,
-  savedJobIds
+  savedJobIds,
+  onDirectApply
 }) => {
   return (
     <div className="space-y-6 pb-12">
@@ -246,12 +248,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-col items-end space-y-2 flex-shrink-0">
+                    <div className="flex flex-col items-end space-y-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSaveJob(job.id);
-                        }}
+                        onClick={() => onSaveJob(job.id)}
                         className={`p-2 rounded-lg border transition-colors ${
                           isSaved 
                             ? 'bg-blue-600 text-white border-blue-500' 
@@ -262,16 +261,33 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         <Bookmark className="w-4 h-4" />
                       </button>
 
-                      <a
-                        href={job.jobUrl}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        onClick={(e) => e.stopPropagation()}
-                        className="px-2.5 py-1 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/30 text-xs font-medium flex items-center space-x-1 transition-colors"
-                      >
-                        <span>Apply</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (onDirectApply) {
+                              onDirectApply(job);
+                            } else {
+                              onSelectJob(job);
+                            }
+                          }}
+                          className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center space-x-1 transition-colors shadow-2xs"
+                          title="Apply directly with your saved resume"
+                        >
+                          <Sparkles className="w-3 h-3 text-amber-300" />
+                          <span>Apply</span>
+                        </button>
+
+                        <a
+                          href={job.jobUrl}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition-colors"
+                          title="Open verified employer career portal"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

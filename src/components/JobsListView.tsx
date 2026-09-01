@@ -30,6 +30,7 @@ interface JobsListViewProps {
   onSaveJob: (jobId: string) => void;
   savedJobIds: Set<string>;
   onRefresh: () => void;
+  onDirectApply?: (job: Job) => void;
 }
 
 export const JobsListView: React.FC<JobsListViewProps> = ({
@@ -44,7 +45,8 @@ export const JobsListView: React.FC<JobsListViewProps> = ({
   onOpenFilterDrawer,
   onSaveJob,
   savedJobIds,
-  onRefresh
+  onRefresh,
+  onDirectApply
 }) => {
   const [viewMode, setViewMode] = useState<'table' | 'card'>('table');
 
@@ -330,13 +332,29 @@ export const JobsListView: React.FC<JobsListViewProps> = ({
                             <Bookmark className="w-3.5 h-3.5" />
                           </button>
 
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (onDirectApply) {
+                                onDirectApply(job);
+                              } else {
+                                onSelectJob(job);
+                              }
+                            }}
+                            className="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center space-x-1 transition-colors shadow-2xs"
+                            title="Apply directly using your saved resume"
+                          >
+                            <Sparkles className="w-3 h-3 text-amber-300" />
+                            <span>Apply</span>
+                          </button>
+
                           <a
                             href={job.jobUrl}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center space-x-1 transition-colors"
+                            className="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition-colors"
+                            title="Open verified employer career portal"
                           >
-                            <span>Apply</span>
                             <ExternalLink className="w-3 h-3" />
                           </a>
                         </div>
@@ -427,16 +445,31 @@ export const JobsListView: React.FC<JobsListViewProps> = ({
                   <span className="text-slate-400">
                     Grad: {job.eligibility.graduationYears.join(', ')}
                   </span>
-                  <a
-                    href={job.jobUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={(e) => e.stopPropagation()}
-                    className="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center space-x-1 transition-colors"
-                  >
-                    <span>Apply on Source</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+                  <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (onDirectApply) {
+                          onDirectApply(job);
+                        } else {
+                          onSelectJob(job);
+                        }
+                      }}
+                      className="px-3 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center space-x-1 transition-colors"
+                    >
+                      <Sparkles className="w-3 h-3 text-amber-300" />
+                      <span>Apply with Resume</span>
+                    </button>
+                    <a
+                      href={job.jobUrl}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition-colors"
+                      title="Open career portal"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
             );

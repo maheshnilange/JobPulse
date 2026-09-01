@@ -171,6 +171,44 @@ export interface SavedJobItem {
   notes: string;
   savedAt: string;
   updatedAt: string;
+  applicationId?: string;
+  appliedAt?: string;
+  resumeFileName?: string;
+  matchScore?: number;
+}
+
+export interface UserProfile {
+  fullName: string;
+  email: string;
+  phone: string;
+  location: string;
+  degree: string;
+  branch: string;
+  graduationYear: number;
+  cgpa: string;
+  skills: string[];
+  experience: string;
+  resumeFileName: string;
+  resumeFileSize?: string;
+  resumeUploadedAt?: string;
+  resumeDataUrl?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  portfolioUrl?: string;
+  coverNote?: string;
+  instantOneClickApply: boolean;
+}
+
+export interface JobApplicationRequest {
+  jobId: string;
+  candidateName: string;
+  candidateEmail: string;
+  candidatePhone?: string;
+  candidateDegree?: string;
+  graduationYear?: number;
+  candidateSkills?: string[];
+  resumeFileName: string;
+  coverNote?: string;
 }
 
 export interface DashboardStats {

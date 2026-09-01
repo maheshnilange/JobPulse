@@ -1,16 +1,13 @@
 import { Router } from 'express';
 import path from 'path';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-const archiver = require('archiver');
+import * as archiverModule from 'archiver';
 import { db } from './db';
 import { FresherIntelligenceService } from './services/fresherIntelligenceService';
 import { WalkInService } from './services/walkInService';
 import { SchedulerService } from './services/schedulerService';
 import { GeminiService } from './services/geminiService';
 import { TestRunnerService } from './services/testRunnerService';
-import { FilterParams, Job, SavedJobItem, UserAlert } from './types';
+import { FilterParams, Job, SavedJobItem, UserAlert, NotificationItem } from './types';
 
 export const apiRouter = Router();
 
@@ -353,6 +350,89 @@ apiRouter.get('/saved', (req, res) => {
   res.json(db.savedJobs);
 });
 
+apiRouter.post('/jobs/apply', (req, res) => {
+  const { 
+    jobId, 
+    candidateName, 
+    candidateEmail, 
+    candidatePhone, 
+    candidateDegree, 
+    graduationYear, 
+    candidateSkills, 
+    resumeFileName, 
+    coverNote 
+  } = req.body;
+
+  const job = db.jobs.find(j => j.id === jobId);
+  if (!job) {
+    return res.status(404).json({ error: 'Job not found' });
+  }
+
+  // Calculate matching score
+  const reqSkills = job.skills || [];
+  const candSkills = (candidateSkills || ['Java', 'Spring Boot', 'SQL', 'Git', 'REST API']).map((s: string) => s.toLowerCase());
+  let matchedCount = 0;
+  reqSkills.forEach(sk => {
+    if (candSkills.some(cs => sk.toLowerCase().includes(cs) || cs.includes(sk.toLowerCase()))) {
+      matchedCount++;
+    }
+  });
+  const matchScore = Math.min(98, Math.max(82, Math.round((matchedCount / Math.max(1, reqSkills.length)) * 100)));
+
+  const applicationId = `APP-${job.companyId.toUpperCase()}-${Date.now().toString().slice(-6)}`;
+  const appliedAt = new Date().toISOString();
+
+  // Create or update in db.savedJobs
+  const existingIdx = db.savedJobs.findIndex(s => s.jobId === jobId);
+  const applicationRecord: SavedJobItem = {
+    id: existingIdx !== -1 ? db.savedJobs[existingIdx].id : `save-${Date.now()}`,
+    jobId,
+    job,
+    status: 'Applied',
+    notes: coverNote ? `Applied with ${resumeFileName || 'Resume.pdf'}: "${coverNote}"` : `Applied via 1-Click Resume submission (${resumeFileName || 'Resume.pdf'})`,
+    savedAt: existingIdx !== -1 ? db.savedJobs[existingIdx].savedAt : appliedAt,
+    updatedAt: appliedAt,
+    applicationId,
+    appliedAt,
+    resumeFileName: resumeFileName || 'Candidate_Resume.pdf',
+    matchScore
+  };
+
+  if (existingIdx !== -1) {
+    db.savedJobs[existingIdx] = applicationRecord;
+  } else {
+    db.savedJobs.unshift(applicationRecord);
+  }
+
+  // Generate confirmation notification
+  const notif: NotificationItem = {
+    id: `notif-app-${Date.now()}`,
+    jobId: job.id,
+    title: `🎉 Application Dispatched: ${job.companyName}`,
+    companyName: job.companyName,
+    role: job.title,
+    experience: job.experience,
+    location: job.location,
+    salary: job.salary,
+    sourceName: 'Direct 1-Click Resume Apply',
+    jobUrl: job.jobUrl,
+    detectedAt: appliedAt,
+    read: false,
+    channelsSent: ['in_app', 'browser']
+  };
+  db.notifications.unshift(notif);
+
+  res.status(201).json({
+    success: true,
+    applicationId,
+    appliedAt,
+    matchScore,
+    job,
+    savedItem: applicationRecord,
+    message: `Application for ${job.title} at ${job.companyName} submitted successfully.`
+  });
+});
+
 apiRouter.post('/saved', (req, res) => {
   const { jobId, notes, status } = req.body;
   const job = db.jobs.find(j => j.id === jobId);
@@ -497,9 +577,19 @@ apiRouter.get('/openapi.json', (req, res) => {
 apiRouter.get('/download-zip', (req, res) => {
   res.attachment('jobpulse-source-code.zip');
   
-  const archive = typeof archiver === 'function' 
-    ? archiver('zip', { zlib: { level: 9 } })
-    : new (archiver.ZipArchive || archiver)({ zlib: { level: 9 } });
+  const mod: any = archiverModule;
+  let archive: any;
+  if (typeof mod === 'function') {
+    archive = mod('zip', { zlib: { level: 9 } });
+  } else if (typeof mod.default === 'function') {
+    archive = mod.default('zip', { zlib: { level: 9 } });
+  } else if (mod.ZipArchive) {
+    archive = new mod.ZipArchive({ zlib: { level: 9 } });
+  } else if (mod.default?.ZipArchive) {
+    archive = new mod.default.ZipArchive({ zlib: { level: 9 } });
+  } else {
+    archive = new mod({ zlib: { level: 9 } });
+  }
 
   archive.on('error', (err: any) => {
     console.error('Archive error:', err);
@@ -528,4 +618,11 @@ apiRouter.get('/download-zip', (req, res) => {
   });
 
   archive.finalize();
+});
+
+// ==================== WORKSPACE OAUTH AUTH CONFIG ====================
+apiRouter.get('/auth/client-id', (req, res) => {
+  // Return client id from environment or google oauth client credentials
+  const clientId = process.env.GOOGLE_CLIENT_ID || process.env.VITE_GOOGLE_CLIENT_ID || '';
+  res.json({ clientId });
 });

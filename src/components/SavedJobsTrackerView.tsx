@@ -132,14 +132,37 @@ export const SavedJobsTrackerView: React.FC<SavedJobsTrackerViewProps> = ({
                   </div>
                 </div>
 
-                <button
-                  onClick={() => onRemove(item.id)}
-                  className="p-1.5 text-slate-500 hover:text-rose-400 transition-colors"
-                  title="Remove from saved"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-1.5">
+                  {item.applicationId && (
+                    <span className="px-2 py-0.5 bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-mono font-bold rounded">
+                      ID: {item.applicationId}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => onRemove(item.id)}
+                    className="p-1.5 text-slate-500 hover:text-rose-400 transition-colors"
+                    title="Remove from saved"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
+
+              {/* Application Details if Dispatched */}
+              {item.applicationId && (
+                <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 text-[11px] text-slate-400 flex flex-wrap items-center justify-between gap-2">
+                  <span className="flex items-center gap-1 text-slate-300">
+                    <FileText className="w-3.5 h-3.5 text-blue-400" />
+                    {item.resumeFileName || 'Resume Attached'}
+                  </span>
+                  {item.appliedAt && (
+                    <span className="flex items-center gap-1 text-slate-400">
+                      <Clock className="w-3 h-3 text-slate-500" />
+                      Applied: {new Date(item.appliedAt).toLocaleDateString()}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Status Selector */}
               <div className="space-y-1.5 pt-2 border-t border-slate-800 text-xs">
